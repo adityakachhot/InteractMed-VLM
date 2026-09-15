@@ -25,9 +25,9 @@ vision_encoder:
   #   - "radimagenet-resnet50" (Pretrained on RadImageNet radiology images)
   #   - "openai/clip-vit-base-patch32" (General vision-language baseline)
   #   - "facebook/dinov2-base" (Self-supervised vision features)
-  model_name_or_path: "TODO_USER_CONFIRM_VISION_ENCODER"
+  model_name_or_path: "torchxrayvision/densenet121-res224-all"
   image_size: [224, 224]
-  feature_dim: 512
+  feature_dim: 1024
   output_spatial_dim: [7, 7]
   freeze_backbone: true
 

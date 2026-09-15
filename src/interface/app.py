@@ -14,6 +14,19 @@ import sys
 from typing import Any, Dict, Optional, Tuple
 from PIL import Image, ImageDraw
 
+import yaml
+import os
+
+def load_config(path: str = None) -> dict:
+    path = path or os.path.join(PROJECT_ROOT, "configs", "model_config.yaml")
+    with open(path) as f:
+        raw = yaml.safe_load(f)
+    flat = {}
+    for section in raw.values():
+        if isinstance(section, dict):
+            flat.update(section)
+    return flat
+
 # Ensure repository root is on sys.path
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if PROJECT_ROOT not in sys.path:
@@ -109,7 +122,7 @@ def build_app():
         print("[WARNING] Gradio is not installed. Install via 'pip install gradio' to launch the UI.")
         return None
 
-    pipeline = InteractMedPipeline()
+    pipeline = InteractMedPipeline(load_config())
 
     theme = gr.themes.Soft(
         primary_hue="blue",
@@ -189,7 +202,7 @@ def main():
 
     if args.test_run:
         print("[INFO] Running offline test pass through InteractMedPipeline...")
-        pipeline = InteractMedPipeline()
+        pipeline = InteractMedPipeline(load_config())
         dummy_img = Image.new("RGB", (224, 224), color=(50, 50, 50))
         overlay, clinical, patient, badge, details = pipeline.process_cxr(dummy_img, "heart")
         print(f"[SUCCESS] Pipeline test run complete!\nClinical: {clinical}\nPatient: {patient}\nBadge: {badge}")
