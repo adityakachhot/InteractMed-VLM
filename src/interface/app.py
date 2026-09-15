@@ -134,7 +134,6 @@ def build_app():
             """
             # 🩺 InteractMed-VLM
             ### Region-Aware, Patient-Friendly CXR Report Generation with Independent Safety Triage
-            *Extending 'Learning to Generate Clinically Coherent Chest X-Ray Reports' (Lovelace & Mortazavi, EMNLP Findings 2020)*
             """
         )
 
